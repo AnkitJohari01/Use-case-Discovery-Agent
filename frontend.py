@@ -10,6 +10,19 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
+import subprocess
+import time
+import streamlit as st
+
+if "backend_started" not in st.session_state:
+    subprocess.Popen([
+        "uvicorn", "backend:app",
+        "--host", "0.0.0.0",
+        "--port", "8000"
+    ])
+    time.sleep(3)
+    st.session_state.backend_started = True
+
 # ─────────────────────────────────────────────
 # Custom CSS
 # ─────────────────────────────────────────────
